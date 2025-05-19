@@ -6,7 +6,7 @@
 
       <form [formGroup]="cdbForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow bg-light">
         <div class="mb-3">
-          <label for="initialAmount" class="form-label">Valor inicial:</label>
+          <label for="initialAmount" class="form-label">Valor inicial(BRL):</label>
           <input id="initialAmount" type="number" formControlName="initialAmount" required class="form-control" (blur)="validateInitialAmount()">
           <div *ngIf="initialAmountError" class="text-danger mt-1">
             Valor deve ser maior que zero.

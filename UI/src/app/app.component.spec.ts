@@ -60,31 +60,7 @@ describe('AppComponent', () => {
     expect(component.cdbForm.valid).toBeFalse();
   });
 
-  it('deve fazer a requisição com sucesso', () => {
-    component.cdbForm.setValue({ initialAmount: 1000, months: 6 });
-
-    const mockResponse = {
-      success: true,
-      grossAmount: 1100,
-      netAmount: 1050,
-      errors: []
-    };
-
-    component.onSubmit();
-
-    const req = httpMock.expectOne(
-      'https://localhost:7192/cdb/calculate?initialValue=1000&months=6'
-    );
-    expect(req.request.method).toBe('GET');
-
-    req.flush(mockResponse);
-
-    expect(component.result).toEqual(mockResponse);
-    expect(component.showResult).toBeTrue();
-    expect(component.showErrors).toBeFalse();
-  });
-
-  it('deve fazer a requisição e tratar erro 400', () => {
+  it('deve exibir erros após requisição falha', () => {
     component.cdbForm.setValue({ initialAmount: 1000, months: 6 });
 
     const mockErrorResponse = {

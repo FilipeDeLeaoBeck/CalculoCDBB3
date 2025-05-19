@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { CdbResult } from './CDB/CdbResult';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { CdbService } from './CDB/cdb.service';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,8 @@ export class AppComponent {
   monthsError: boolean = false;
 
   constructor(
-    private readonly http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cdbService: CdbService
   ) {
     this.cdbForm = this.formBuilder.group({
       initialAmount: [0, [Validators.required, this.cdbFormInitialAmountValidator]],
@@ -32,16 +32,9 @@ export class AppComponent {
   onSubmit() {
     const formData = this.cdbForm.value;
 
-    // definir como variável de ambiente para case real
-    const url = `https://localhost:7192/cdb/calculate?initialValue=${formData.initialAmount}&months=${formData.months}`;
-
-    this.http.get<CdbResult>(url).subscribe({
+    this.cdbService.calculateCdb(formData.initialAmount, formData.months).subscribe({
       next: (res) => {
-        console.log(`Resposta: ${JSON.stringify(res)}`);
         this.result = res;
-
-        console.log(`CdbResult: ${JSON.stringify(this.result)}`);
-
         this.showResult = true;
         this.showErrors = false;
       },
