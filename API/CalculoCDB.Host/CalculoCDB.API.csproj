@@ -8,16 +8,6 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <Content Remove="wwwroot\3rdpartylicenses.txt" />
-    <Content Remove="wwwroot\favicon.ico" />
-    <Content Remove="wwwroot\index.html" />
-    <Content Remove="wwwroot\main.6bac2782c2bd8b01.js" />
-    <Content Remove="wwwroot\polyfills.908d28a93b38aff4.js" />
-    <Content Remove="wwwroot\runtime.c0e306c5331c807a.js" />
-    <Content Remove="wwwroot\styles.ef46db3751d8e999.css" />
-  </ItemGroup>-->
-
   <ItemGroup>
     <None Remove="**\*.spec.ts" />
     <Content Remove="**\*.spec.ts" />
