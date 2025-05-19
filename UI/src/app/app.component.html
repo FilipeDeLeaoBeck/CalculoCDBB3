@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <h2 class="text-center mb-4">Calcular CDB</h2>
+
+      <form [formGroup]="cdbForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow bg-light">
+        <div class="mb-3">
+          <label for="initialAmount" class="form-label">Valor inicial:</label>
+          <input id="initialAmount" type="number" formControlName="initialAmount" required class="form-control" (blur)="validateInitialAmount()">
+          <div *ngIf="initialAmountError" class="text-danger mt-1">
+            Valor deve ser maior que zero.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="months" class="form-label">Prazo (em meses):</label>
+          <input id="months" type="number" formControlName="months" required step="1" min="2" class="form-control" (blur)="validateMonths()">
+          <div *ngIf="monthsError" class="text-danger mt-1">
+            Prazo em meses deve ser um número inteiro maior que 1.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="cdbForm.invalid">
+          Calcular
+        </button>
+      </form>
+
+      <div *ngIf="showResult" class="mt-4 p-3 bg-success text-white rounded">
+        <p class="fw-bold">Resultado:</p>
+        <p><strong>Valor Bruto:</strong> {{ result.grossAmount | currency:'BRL' }}</p>
+        <p><strong>Valor Líquido:</strong> {{ result.netAmount | currency:'BRL' }}</p>
+      </div>
+
+      <div *ngIf="showErrors" class="mt-4 alert alert-danger">
+        <p class="fw-bold">Um ou mais erros foram encontrados:</p>
+        <ul class="mb-0">
+          <li *ngFor="let error of result.errors">
+            <strong>{{error}}</strong>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
